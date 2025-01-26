@@ -120,45 +120,45 @@ const Pracownik* ListaPracownikow::Szukaj(const char* nazwisko, const char* imie
     return nullptr; // Taki pracownik nie istnieje
 }
 
-void ListaPracownikow::ZapiszDoPliku(const char* nazwaPliku) const
-{
+void ListaPracownikow::ZapiszDoPliku(const char* nazwaPliku) const {
     std::ofstream plik(nazwaPliku);
-    if (plik.is_open())
-    {
-        Pracownik* p = m_pPoczatek;
-        while (p != nullptr)
-        {
-            // Sprawdü typ obiektu i zapisz z odpowiednim identyfikatorem
-            if (dynamic_cast<Kierownik*>(p) != nullptr) {
-                plik << "K " << *dynamic_cast<Kierownik*>(p) << "\n"; // Kierownik
-            }
-            else if (dynamic_cast<Informatyk*>(p) != nullptr) {
-                plik << "I " << *dynamic_cast<Informatyk*>(p) << "\n"; // Informatyk
-            }
-            else {
-                plik << "P " << *p << "\n"; // Pracownik
-            }
-            p = p->m_pNastepny;
+    if (!plik.is_open()) {
+        std::cerr << "Nie uda≥o siÍ otworzyÊ pliku do zapisu: " << nazwaPliku << std::endl;
+        return;
+    }
+
+    Pracownik* p = m_pPoczatek;
+    while (p != nullptr) {
+        if (dynamic_cast<Kierownik*>(p) != nullptr) {
+            plik << "K " << p->ID() << " " << *dynamic_cast<Kierownik*>(p) << "\n";
         }
-        plik.close();
-        std::cout << "Pomyslnie zapisano liste pracownikow do pliku\n";
+        else if (dynamic_cast<Informatyk*>(p) != nullptr) {
+            plik << "I " << p->ID() << " " << *dynamic_cast<Informatyk*>(p) << "\n";
+        }
+        else {
+            plik << "P " << p->ID() << " " << *p << "\n";
+        }
+        p = p->m_pNastepny;
     }
-    else
-    {
-        std::cerr << "Nie udalo sie otworzyc pliku " << nazwaPliku << std::endl;
-    }
+
+    plik.close();
+    std::cout << "Pomyslnie zapisano liste pracownikow do pliku\n";
 }
+
 
 
 void ListaPracownikow::OdczytZPliku(const char* nazwaPliku) {
     std::ifstream plik(nazwaPliku);
     if (!plik.is_open()) {
-        std::cerr << "Nie mozna otworzyc pliku do odczytu: " << nazwaPliku << std::endl;
+        std::cerr << "Nie uda≥o siÍ otworzyÊ pliku do odczytu: " << nazwaPliku << std::endl;
         return;
     }
 
     char typ;
-    while (plik >> typ) { // Odczyt typu obiektu: 'P' lub 'K'
+    while (plik >> typ) { // Odczyt typu obiektu: 'P', 'K', lub 'I'
+        int id;
+        plik >> id;
+
         if (typ == 'P') {
             char imie[256], nazwisko[256];
             int dzien, miesiac, rok;
@@ -179,9 +179,9 @@ void ListaPracownikow::OdczytZPliku(const char* nazwaPliku) {
             int dzien, miesiac, rok, liczbaPracownikow;
 
             plik >> imie >> nazwisko >> dzien;
-            plik.ignore(1, '-'); // Ignoruj separator '-'
+            plik.ignore(1, '-');
             plik >> miesiac;
-            plik.ignore(1, '-'); // Ignoruj separator '-'
+            plik.ignore(1, '-');
             plik >> rok;
             plik >> nazwaDzialu >> liczbaPracownikow;
 
@@ -190,11 +190,28 @@ void ListaPracownikow::OdczytZPliku(const char* nazwaPliku) {
                 Dodaj(nowyKierownik);
             }
         }
+        else if (typ == 'I') {
+            char imie[256], nazwisko[256], aplikacja[256];
+            int dzien, miesiac, rok, liczbaAplikacji;
+
+            plik >> imie >> nazwisko >> dzien;
+            plik.ignore(1, '-');
+            plik >> miesiac;
+            plik.ignore(1, '-');
+            plik >> rok;
+            plik >> aplikacja >> liczbaAplikacji;
+
+            if (!plik.fail()) {
+                Informatyk* nowyInformatyk = new Informatyk(imie, nazwisko, dzien, miesiac, rok, aplikacja, liczbaAplikacji);
+                Dodaj(nowyInformatyk);
+            }
+        }
     }
 
     plik.close();
-    std::cout << "Lista pracownikow zostala odczytana z pliku " << nazwaPliku << std::endl;
+    std::cout << "Lista pracownikow zostala odczytana z pliku\n";
 }
+
 
 
 

@@ -5,15 +5,16 @@
 using namespace std;
 
 
-int Pracownik::s_nastepneID = 1;
+int Pracownik::s_nastepneID = 0;
 
+int Pracownik::ID() const { return m_nIDZatrudnienia; }
 //Domyslny
 Pracownik::Pracownik(const char* im, const char* naz, int dzien, int miesiac, int rok) : 
     m_Imie(im), m_Nazwisko(naz), m_DataUrodzenia(dzien, miesiac, rok), m_nIDZatrudnienia(s_nastepneID++), m_pNastepny(nullptr), m_pPoprzedni(nullptr) {}
 
 //Kopiujacy
 Pracownik::Pracownik(const Pracownik& wzor) 
-    : m_Imie(wzor.m_Imie), m_Nazwisko(wzor.m_Nazwisko), m_DataUrodzenia(wzor.m_DataUrodzenia), m_nIDZatrudnienia(s_nastepneID++), m_pNastepny(nullptr), m_pPoprzedni(nullptr) {}
+    : m_Imie(wzor.m_Imie), m_Nazwisko(wzor.m_Nazwisko), m_DataUrodzenia(wzor.m_DataUrodzenia), m_nIDZatrudnienia(s_nastepneID), m_pNastepny(nullptr), m_pPoprzedni(nullptr) {}
 
 // Operator przypisania
 Pracownik& Pracownik::operator=(const Pracownik& wzor) {
@@ -57,7 +58,8 @@ void Pracownik::DataUrodzenia(int nowy_dzien, int nowy_miesiac, int nowy_rok)
 }
 
 void Pracownik::Wypisz() const 
-{
+{   
+
     m_Imie.Wypisz();
     cout << " ";
     m_Nazwisko.Wypisz();
@@ -105,7 +107,7 @@ bool Pracownik::operator==(const Pracownik& wzor) const
 
 void Pracownik::WypiszDane() const
 {
-    std::cout << "Pracownik: ";
+    cout << "ID: " << m_nIDZatrudnienia << " - Pracownik: ";
     Wypisz();
 }
 

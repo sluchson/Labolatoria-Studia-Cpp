@@ -14,7 +14,7 @@ public:
 	Pracownik* m_pNastepny;
 	Pracownik* m_pPoprzedni;
 
-
+	int ID() const;
 	Pracownik(const char* im = "", const char* naz = "", int dzien = 1, int miesi¹c = 1, int rok = 2000);
 	Pracownik(const Pracownik& wzor);
 	const char* Imie() const;

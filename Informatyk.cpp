@@ -31,7 +31,7 @@ bool Informatyk::operator==(const Informatyk& wzor) const {
 
 // Wypisanie danych
 void Informatyk::WypiszDane() const {
-    std::cout << "Informatyk: ";
+    cout << "ID: " << ID() << " - Informatyk: ";
     Wypisz();
     cout << "Tworzona aplikacja: " << m_TworzonaAplikacja.Zwroc() << ", Liczba aplikacji: " << m_nLiczbaAplikacji << endl;
 }

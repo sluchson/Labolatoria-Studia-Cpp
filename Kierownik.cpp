@@ -31,7 +31,7 @@ bool Kierownik::operator==(const Kierownik& wzor) const {
 
 void Kierownik::WypiszDane() const
 {
-    std::cout << "Kierownik: ";
+    cout << "ID: " << ID() << " - Kierownik: ";
     Wypisz();
     std::cout << "Dzial: " << m_NazwaDzialu.Zwroc() << ", Liczba pracownikow: " << m_nLiczbaPracownikow << endl;
 }
