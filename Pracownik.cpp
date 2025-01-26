@@ -1,4 +1,5 @@
 #include "Pracownik.h"
+#include "Data.h"
 #include <iostream>
 
 using namespace std;
@@ -35,6 +36,10 @@ const char* Pracownik::Nazwisko() const
     return m_Nazwisko.Zwroc();
 }
 
+int Pracownik::DzienUrodzenia() const { return m_DataUrodzenia.Dzien(); }
+int Pracownik::MiesiacUrodzenia() const { return m_DataUrodzenia.Miesiac(); }
+int Pracownik::RokUrodzenia() const { return m_DataUrodzenia.Rok(); }
+void Pracownik::WypiszDateUrodzenia() const { m_DataUrodzenia.Wypisz(); }
 
 void Pracownik::Imie(const char* nowe_imie)
 {
@@ -58,7 +63,6 @@ void Pracownik::Wypisz() const
     m_Nazwisko.Wypisz();
     cout << " ";
     m_DataUrodzenia.Wypisz();
-    cout << endl;
 }
 
 void Pracownik::Wpisz()
@@ -92,4 +96,37 @@ int Pracownik::Porownaj(const Pracownik& wzorzec) const
 
     return m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia);
 
+}
+
+bool Pracownik::operator==(const Pracownik& wzor) const
+{
+    return m_Imie == wzor.m_Imie && m_Nazwisko == wzor.m_Nazwisko && m_DataUrodzenia.Porownaj(wzor.m_DataUrodzenia) == 0;
+}
+
+void Pracownik::WypiszDane() const
+{
+    std::cout << "Pracownik: ";
+    Wypisz();
+}
+
+Pracownik* Pracownik::KopiaObiektu() const
+{
+    return new Pracownik(*this);
+}
+
+// Wirtualny destruktor
+Pracownik::~Pracownik() {}
+
+std::ostream& operator<<(std::ostream& wy, const Pracownik& p)
+{
+    return wy << p.m_Imie << " " << p.m_Nazwisko << " " << p.m_DataUrodzenia;
+}
+
+std::istream& operator>>(std::istream& we, Pracownik& p) 
+{
+    we >> p.m_Imie;
+    we >> p.m_Nazwisko;
+    we >> p.m_DataUrodzenia;
+    we.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    return we;
 }

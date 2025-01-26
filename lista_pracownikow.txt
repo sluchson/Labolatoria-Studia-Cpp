@@ -1,0 +1,4 @@
+P Maciej Pereslucha 1-1-1
+P Mateusz Pokrywka 2-2-2
+K Antoni Szczepanski 4-4-4 ALG 100
+I Damian Pietryka 3-3-3 SQL 10

@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+
 class Data
 {
 	int m_nDzien;
@@ -7,7 +9,8 @@ class Data
 	void Koryguj();
 public:
 	// Konstruktor inicjalizuj¹cy i koryguj¹cy datê
-	Data(int d, int m, int r);
+	Data(int d, int m, int r); \
+	Data();
 	void Ustaw(int d, int m, int r);
 	int Dzien() const;
 	int Miesiac() const;
@@ -20,3 +23,5 @@ public:
 	friend std::istream& operator>>(std::istream& we, Data& d);
 };
 
+std::ostream& operator<<(std::ostream& wy, const Data& d);
+std::istream& operator>>(std::istream& we, Data& d);

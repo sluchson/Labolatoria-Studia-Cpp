@@ -1,6 +1,9 @@
 #pragma once
 #include "Pracownik.h"
 
+#include<fstream>
+#include <iostream>
+#include <cstring>
 
 class ListaPracownikow
 {
@@ -9,9 +12,11 @@ class ListaPracownikow
 public:
 	ListaPracownikow();
 	~ListaPracownikow();
-	void Dodaj(const Pracownik& p);
+	void Dodaj(Pracownik* p);
 	void Usun(const Pracownik& wzorzec);
 	void WypiszPracownikow() const;
 	const Pracownik* Szukaj(const char* nazwisko, const char* imie) const;
+	void ZapiszDoPliku(const char* nazwaPliku) const;
+	void OdczytZPliku(const char* nazwaPliku);
 };
 

@@ -8,6 +8,10 @@ Data::Data(int d, int m, int r) : m_nDzien(d), m_nMiesiac(m), m_nRok(r) {
 	Koryguj();
 }
 
+Data::Data()
+{
+}
+
 void Data::Ustaw(int d, int m, int r)
 {
     m_nDzien = d;
@@ -102,4 +106,19 @@ int Data::Porownaj(const Data& wzor) const
     return -1;
 }
 
+std::ostream& operator<<(std::ostream& wy, const Data& d)
+{
+	return wy << d.m_nDzien << '-' << d.m_nMiesiac << '-' << d.m_nRok;
+}
 
+std::istream& operator>>(std::istream& we, Data& d)
+{
+	int dd, mm, rr;
+	we >> dd;
+	we.ignore(1, '-');
+	we >> mm;
+	we.ignore(1, '-');
+	we >> rr;
+	d.Ustaw(dd, mm, rr);
+	return we;
+}

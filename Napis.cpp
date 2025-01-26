@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string.h>
 
-using namespace std;
 
 // Konstruktor domyœlny
 Napis::Napis(const char* nap) {
@@ -19,7 +18,8 @@ Napis::Napis(const char* nap) {
 }
 
 // Konstruktor kopiuj¹cy
-Napis::Napis(const Napis& wzor) {
+Napis::Napis(const Napis& wzor) 
+{
     m_nDl = wzor.m_nDl;
     m_pszNapis = new char[m_nDl];
     strcpy_s(m_pszNapis, m_nDl, wzor.m_pszNapis);
@@ -28,17 +28,6 @@ Napis::Napis(const Napis& wzor) {
 // Destruktor
 Napis::~Napis() {
     delete[] m_pszNapis;
-}
-
-// Operator przypisania
-Napis& Napis::operator=(const Napis& wzor) {
-    if (this != &wzor) { // Unikamy samoprzypisania
-        delete[] m_pszNapis; // Zwolnij wczesniej przydzielona pamiec
-        m_nDl = wzor.m_nDl;
-        m_pszNapis = new char[m_nDl];
-        strcpy_s(m_pszNapis, m_nDl, wzor.m_pszNapis);
-    }
-    return *this;
 }
 
 // Metoda zwracaj¹ca napis
@@ -64,17 +53,73 @@ void Napis::Ustaw(const char* nowy_napis) {
 
 // Metoda wypisuj¹ca napis
 void Napis::Wypisz() const {
-    cout << m_pszNapis;
+    std::cout << m_pszNapis;
 }
 
 // Metoda wczytuj¹ca napis
 void Napis::Wpisz() {
     char bufor[256];
-    cin.getline(bufor, 256);
+    std::cin.getline(bufor, 256);
     Ustaw(bufor);
 }
 
 // Porównanie napisu
-int Napis::SprawdzNapis(const char* por_napis) const {
+int Napis::SprawdzNapis(const char* por_napis) const
+{
     return strcmp(m_pszNapis, por_napis);
+}
+
+
+// Operator przypisania
+Napis& Napis::operator=(const Napis& wzor) {
+    if (this != &wzor) { // Unikamy samoprzypisania
+        delete[] m_pszNapis; // Zwolnij wczesniej przydzielona pamiec
+        m_nDl = wzor.m_nDl;
+        m_pszNapis = new char[m_nDl];
+        strcpy_s(m_pszNapis, m_nDl, wzor.m_pszNapis);
+    }
+    return *this;
+}
+
+bool Napis::operator==(const Napis& wzor) const
+{
+    if (strcmp(m_pszNapis, wzor.Zwroc()) == 0)
+        return true;
+    else
+        return false;
+}
+
+std::ostream& operator<<(std::ostream& wy, const Napis& p) {
+    return wy << p.m_pszNapis;
+}
+
+std::istream& operator>>(std::istream& we, Napis& p) {
+    char pom[40];
+    int i = 0;
+
+
+    memset(pom, 0, sizeof(pom));
+
+
+    while (we.peek() == ' ')
+    {
+        we.ignore();
+    }
+
+    while (we && we.peek() != '\n' && i < 39)
+    {
+        char c = we.get();
+        if (c != ' ') 
+        {
+            pom[i++] = c;
+        }
+    }
+
+
+    p.Ustaw(pom);
+
+
+    we.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    return we;
 }
