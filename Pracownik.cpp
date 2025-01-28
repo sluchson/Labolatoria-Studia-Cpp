@@ -8,15 +8,14 @@ using namespace std;
 int Pracownik::s_nastepneID = 0;
 
 int Pracownik::ID() const { return m_nIDZatrudnienia; }
-//Domyslny
+
+
 Pracownik::Pracownik(const char* im, const char* naz, int dzien, int miesiac, int rok) : 
     m_Imie(im), m_Nazwisko(naz), m_DataUrodzenia(dzien, miesiac, rok), m_nIDZatrudnienia(s_nastepneID++), m_pNastepny(nullptr), m_pPoprzedni(nullptr) {}
 
-//Kopiujacy
 Pracownik::Pracownik(const Pracownik& wzor) 
     : m_Imie(wzor.m_Imie), m_Nazwisko(wzor.m_Nazwisko), m_DataUrodzenia(wzor.m_DataUrodzenia), m_nIDZatrudnienia(s_nastepneID), m_pNastepny(nullptr), m_pPoprzedni(nullptr) {}
 
-// Operator przypisania
 Pracownik& Pracownik::operator=(const Pracownik& wzor) {
     if (this != &wzor) { // Unikanie samoprzydzia³u
         m_Imie = wzor.m_Imie;
@@ -31,16 +30,17 @@ const char* Pracownik::Imie() const
     return m_Imie.Zwroc();
 }
 
-
 const char* Pracownik::Nazwisko() const
 {
     return m_Nazwisko.Zwroc();
 }
 
 int Pracownik::DzienUrodzenia() const { return m_DataUrodzenia.Dzien(); }
+
 int Pracownik::MiesiacUrodzenia() const { return m_DataUrodzenia.Miesiac(); }
+
 int Pracownik::RokUrodzenia() const { return m_DataUrodzenia.Rok(); }
-void Pracownik::WypiszDateUrodzenia() const { m_DataUrodzenia.Wypisz(); }
+
 
 void Pracownik::Imie(const char* nowe_imie)
 {
@@ -59,7 +59,6 @@ void Pracownik::DataUrodzenia(int nowy_dzien, int nowy_miesiac, int nowy_rok)
 
 void Pracownik::Wypisz() const 
 {   
-
     m_Imie.Wypisz();
     cout << " ";
     m_Nazwisko.Wypisz();
@@ -97,7 +96,6 @@ int Pracownik::Porownaj(const Pracownik& wzorzec) const
         return por;
 
     return m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia);
-
 }
 
 bool Pracownik::operator==(const Pracownik& wzor) const
@@ -105,10 +103,14 @@ bool Pracownik::operator==(const Pracownik& wzor) const
     return m_Imie == wzor.m_Imie && m_Nazwisko == wzor.m_Nazwisko && m_DataUrodzenia.Porownaj(wzor.m_DataUrodzenia) == 0;
 }
 
-void Pracownik::WypiszDane() const
-{
-    cout << "ID: " << m_nIDZatrudnienia << " - Pracownik: ";
-    Wypisz();
+void Pracownik::WypiszDane() const {
+    cout << "ID: " << m_nIDZatrudnienia << " - ";
+    cout << TypPracownika() << ": "; 
+    Wypisz(); // Metoda wypisuj¹ca podstawowe dane
+}
+
+const char* Pracownik::TypPracownika() const {
+    return "Pracownik";
 }
 
 Pracownik* Pracownik::KopiaObiektu() const
@@ -116,7 +118,6 @@ Pracownik* Pracownik::KopiaObiektu() const
     return new Pracownik(*this);
 }
 
-// Wirtualny destruktor
 Pracownik::~Pracownik() {}
 
 std::ostream& operator<<(std::ostream& wy, const Pracownik& p)

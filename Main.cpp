@@ -5,7 +5,7 @@
 
 void Interfejs() {
     ListaPracownikow lista;
-    const char* nazwaPliku = "lista_pracownikow.txt"; // Sta³a nazwa pliku
+    const char* nazwaPliku = "lista_pracownikow.txt"; 
     int opcja;
     do {
         std::cout << "\nMenu:\n";
@@ -20,67 +20,30 @@ void Interfejs() {
         std::cout << "9. Wyjscie\n";
         std::cout << "Wybierz opcje: ";
         std::cin >> opcja;
-        std::cin.ignore(); // Czyszczenie bufora wejœcia
+        std::cin.ignore(); // Czyszczenie bufora wejœciowego
 
         switch (opcja) {
         case 1: {
             std::cout << std::endl;
-            char imie[256], nazwisko[256];
-            int dzien, miesiac, rok;
-            std::cout << "Podaj imie: ";
-            std::cin.getline(imie, 256);
-            std::cout << "Podaj nazwisko: ";
-            std::cin.getline(nazwisko, 256);
-            std::cout << "Podaj date urodzenia (dzien miesiac rok): ";
-            std::cin >> dzien >> miesiac >> rok;
-            std::cin.ignore();
-
-            Pracownik* nowy = new Pracownik(imie, nazwisko, dzien, miesiac, rok);
-            lista.Dodaj(nowy);
-            std::cout << "Pracownik dodany.\n";
+            Pracownik* pracownik = new Pracownik();
+            pracownik->Wpisz();
+            lista.Dodaj(pracownik);
+            std::cout << "\nPracownik dodany!\n";
             break;
         }
         case 2: {
             std::cout << std::endl;
-            char imie[256], nazwisko[256], nazwaDzialu[256];
-            int dzien, miesiac, rok, liczbaPracownikow;
-            std::cout << "Podaj imie: ";
-            std::cin.getline(imie, 256);
-            std::cout << "Podaj nazwisko: ";
-            std::cin.getline(nazwisko, 256);
-            std::cout << "Podaj date urodzenia (dzien miesiac rok): ";
-            std::cin >> dzien >> miesiac >> rok;
-            std::cin.ignore();
-            std::cout << "Podaj nazwe dzialu: ";
-            std::cin.getline(nazwaDzialu, 256);
-            std::cout << "Podaj liczbe pracownikow w dziale: ";
-            std::cin >> liczbaPracownikow;
-            std::cin.ignore();
-
-            Kierownik* nowy = new Kierownik(imie, nazwisko, dzien, miesiac, rok, nazwaDzialu, liczbaPracownikow);
-            lista.Dodaj(nowy);
-            std::cout << "Kierownik dodany.\n";
+            Kierownik* kierownik = new Kierownik();
+            kierownik->Wpisz();
+            lista.Dodaj(kierownik);
+            std::cout << "Kierownik dodany!\n";
             break;
         }
         case 3: {
             std::cout << std::endl;
-            char imie[256], nazwisko[256], aplikacja[256];
-            int dzien, miesiac, rok, liczbaAplikacji;
-            std::cout << "Podaj imie: ";
-            std::cin.getline(imie, 256);
-            std::cout << "Podaj nazwisko: ";
-            std::cin.getline(nazwisko, 256);
-            std::cout << "Podaj date urodzenia (dzien miesiac rok): ";
-            std::cin >> dzien >> miesiac >> rok;
-            std::cin.ignore();
-            std::cout << "Podaj nazwe aplikacji: ";
-            std::cin.getline(aplikacja, 256);
-            std::cout << "Podaj liczbe aplikacji: ";
-            std::cin >> liczbaAplikacji;
-            std::cin.ignore();
-
-            Informatyk* nowy = new Informatyk(imie, nazwisko, dzien, miesiac, rok, aplikacja, liczbaAplikacji);
-            lista.Dodaj(nowy);
+            Informatyk* informatyk = new Informatyk();
+            informatyk->Wpisz();
+            lista.Dodaj(informatyk);
             std::cout << "Informatyk dodany.\n";
             break;
         }

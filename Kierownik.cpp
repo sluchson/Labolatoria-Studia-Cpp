@@ -3,16 +3,13 @@
 
 using namespace std;
 
-// Konstruktor domyœlny
-Kierownik::Kierownik(const char* im, const char* naz, int dzien, int miesiac, int rok,
-    const char* nazwaDzialu, int liczbaPracownikow)
+
+Kierownik::Kierownik(const char* im, const char* naz, int dzien, int miesiac, int rok, const char* nazwaDzialu, int liczbaPracownikow)
     : Pracownik(im, naz, dzien, miesiac, rok), m_NazwaDzialu(nazwaDzialu), m_nLiczbaPracownikow(liczbaPracownikow) {}
 
-// Konstruktor kopiuj¹cy
 Kierownik::Kierownik(const Kierownik& wzor)
     : Pracownik(wzor), m_NazwaDzialu(wzor.m_NazwaDzialu), m_nLiczbaPracownikow(wzor.m_nLiczbaPracownikow) {}
 
-// Operator przypisania
 Kierownik& Kierownik::operator=(const Kierownik& wzor) {
     if (this != &wzor) {
         Pracownik::operator=(wzor);
@@ -22,25 +19,37 @@ Kierownik& Kierownik::operator=(const Kierownik& wzor) {
     return *this;
 }
 
-// Operator porównania
 bool Kierownik::operator==(const Kierownik& wzor) const {
     return Pracownik::operator==(wzor) &&
         m_NazwaDzialu == wzor.m_NazwaDzialu &&
         m_nLiczbaPracownikow == wzor.m_nLiczbaPracownikow;
 }
 
-void Kierownik::WypiszDane() const
-{
-    cout << "ID: " << ID() << " - Kierownik: ";
-    Wypisz();
-    std::cout << "Dzial: " << m_NazwaDzialu.Zwroc() << ", Liczba pracownikow: " << m_nLiczbaPracownikow << endl;
+const char* Kierownik::TypPracownika() const {
+    return "Kierownik";
 }
-// Wirtualna metoda KopiaObiektu
+
+void Kierownik::Wpisz()
+{
+
+    Pracownik::Wpisz();
+    cout << "Podaj nazwe dzialu: ";
+    m_NazwaDzialu.Wpisz();
+    cout << "Podaj liczbe pracownikow: ";
+    cin >> m_nLiczbaPracownikow;
+    cin.ignore();
+}
+
+void Kierownik::WypiszDane() const {
+    Pracownik::WypiszDane(); // Wywo³anie metody bazowej
+    cout << "Dzial: " << m_NazwaDzialu.Zwroc()
+        << ", Liczba pracownikow: " << m_nLiczbaPracownikow << endl;
+}
+
 Pracownik* Kierownik::KopiaObiektu() const {
     return new Kierownik(*this);
 }
 
-// Operator strumieniowy wyjœcia
 std::ostream& operator<<(std::ostream& wy, const Kierownik& k) {
     wy << k.Imie() << " " << k.Nazwisko() << " "
         << k.DzienUrodzenia() << "-" << k.MiesiacUrodzenia() << "-" << k.RokUrodzenia() << " "
@@ -49,7 +58,6 @@ std::ostream& operator<<(std::ostream& wy, const Kierownik& k) {
 }
 
 
-// Operator strumieniowy wejœcia
 std::istream& operator>>(std::istream& we, Kierownik& k) {
     we >> static_cast<Pracownik&>(k); // Wczytanie czêœci bazowej
     cout << "Podaj nazwe dzialu: ";

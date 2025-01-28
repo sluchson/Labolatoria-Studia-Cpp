@@ -9,7 +9,6 @@ ListaPracownikow::ListaPracownikow() {
     m_nLiczbaPracownikow = 0;
 }
 
-// Destruktor zwalniaj¹cy pamiêæ
 ListaPracownikow::~ListaPracownikow()
 {
     Pracownik* usun = m_pPoczatek; // Zaczyna od pierwszego elementu
@@ -42,8 +41,8 @@ void ListaPracownikow::Dodaj(Pracownik* p)
     if (!wasFoundInList)
     {
         Pracownik* nowy = p->KopiaObiektu(); // Tworzy nowy obiekt za pomoc¹ wirtualnej metody
-        nowy->m_pNastepny = nullptr;       // Ustawia `nullptr` jako nastêpny element
-        nowy->m_pPoprzedni = nullptr;      // Ustawia `nullptr` jako poprzedni element
+        nowy->m_pNastepny = nullptr;       // Ustawia nullptr jako nastêpny element
+        nowy->m_pPoprzedni = nullptr;      // Ustawia nullptr jako poprzedni element
         if (m_nLiczbaPracownikow == 0)     // Jeœli lista jest pusta
         {
             m_pPoczatek = nowy;            // Nowy element staje siê pocz¹tkiem
@@ -155,7 +154,7 @@ void ListaPracownikow::OdczytZPliku(const char* nazwaPliku) {
     }
 
     char typ;
-    while (plik >> typ) { // Odczyt typu obiektu: 'P', 'K', lub 'I'
+    while (plik >> typ) { // Odczyt typu obiektu:
         int id;
         plik >> id;
 
@@ -164,9 +163,9 @@ void ListaPracownikow::OdczytZPliku(const char* nazwaPliku) {
             int dzien, miesiac, rok;
 
             plik >> imie >> nazwisko >> dzien;
-            plik.ignore(1, '-'); // Ignoruj separator '-'
+            plik.ignore(1, '-'); 
             plik >> miesiac;
-            plik.ignore(1, '-'); // Ignoruj separator '-'
+            plik.ignore(1, '-'); 
             plik >> rok;
 
             if (!plik.fail()) {

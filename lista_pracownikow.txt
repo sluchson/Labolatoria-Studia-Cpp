@@ -1,3 +1,7 @@
-P 1 Przemek Potoczny 1-1-1
-K 2 Lukasz Pachla 2-2-2 CWEL 1
-I 3 Maciej Pereslucha 3-3-3 C10H 3
+I 1 Anna Kordybacha 11-1-1111 CardS 10
+P 2 Mateusz Pokrywka 1-1-1
+K 3 Lukasz Pachla 2-2-2 Zarzad 100
+I 4 Maciej Pereslucha 3-3-3 SyncSphere 5
+P 5 Przemyslaw Potoczny 12-6-2007
+I 6 Wiktor Cioch 1-1-2000 BankON 199
+K 7 Damian Pietryka 2-2-2002 Informacja 222

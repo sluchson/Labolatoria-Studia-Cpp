@@ -8,9 +8,7 @@ Data::Data(int d, int m, int r) : m_nDzien(d), m_nMiesiac(m), m_nRok(r) {
 	Koryguj();
 }
 
-Data::Data()
-{
-}
+Data::Data(){}
 
 void Data::Ustaw(int d, int m, int r)
 {
@@ -20,18 +18,15 @@ void Data::Ustaw(int d, int m, int r)
 	Koryguj();
 }
 
-
 int Data::Dzien() const
 {
     return m_nDzien;
 }
 
-
 int Data::Miesiac() const
 {
     return m_nMiesiac;
 }
-
 
 int Data::Rok() const
 {
@@ -87,7 +82,6 @@ void Data::Koryguj()
 		m_nDzien = dniWMiesiacu;
 	}
 }
-
 
 int Data::Porownaj(const Data& wzor) const
 {

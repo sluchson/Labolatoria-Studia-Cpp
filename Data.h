@@ -8,20 +8,23 @@ class Data
 	int m_nRok;
 	void Koryguj();
 public:
-	// Konstruktor inicjalizuj¹cy i koryguj¹cy datê
-	Data(int d, int m, int r); \
+
+	Data(int d, int m, int r); 
 	Data();
+
 	void Ustaw(int d, int m, int r);
+
 	int Dzien() const;
 	int Miesiac() const;
 	int Rok() const;
+
 	void Wypisz() const;
 	void Wpisz();
+
 	int Porownaj(const Data& wzor) const;
 
 	friend std::ostream& operator<<(std::ostream& wy, const Data& d);
 	friend std::istream& operator>>(std::istream& we, Data& d);
 };
-
 std::ostream& operator<<(std::ostream& wy, const Data& d);
 std::istream& operator>>(std::istream& we, Data& d);
